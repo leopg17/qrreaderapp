@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:path/path.dart';
-import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:qrreaderapp/src/models/scan_model.dart';
+//Me permite exponer este modelo a las paginas que importen el DB Provider
+export 'package:qrreaderapp/src/models/scan_model.dart';
 
 class DBProvider {
   
@@ -62,7 +65,8 @@ class DBProvider {
   nuevoScan(ScanModel nuevoScan) async { 
     final db = await database; 
     final res = await db.insert('Scans', nuevoScan.toJson()); // Esta es mas segura que la anterior
-    return res; 
+    return res; //Si ponemos el breakpoint en esta linea el programa se detiene
+    //Si tiene un 1 significa que si lo incluyo, cero significa que no
   }
 
   //Select - Obtener información

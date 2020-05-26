@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:barcode_scan/barcode_scan.dart';
+import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
+import 'package:qrreaderapp/src/providers/db_provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -41,22 +43,24 @@ class _HomePageState extends State<HomePage> {
 
   _scanQR() async {
 
-    // http://bolsacr.com/
+    //http://bolsacr.com/
 
     //geo:10.04692358476945,-84.32874992331394
-    dynamic futureString = '';
+    dynamic futureString = 'http://bolsacr.com/';
+    
 
-    try {
-      futureString = await BarcodeScanner.scan();
+    // try {
+    //   futureString = await BarcodeScanner.scan();
 
-    }catch( e ) {
-      futureString = e.toString();
-    }
+    // }catch( e ) {
+    //   futureString = e.toString();
+    // }
 
-    print('Future String: ${futureString.rawContent}'); // Esto nos ayuda a depurarlo en caso de error especial
+    // print('Future String: ${futureString.rawContent}'); // Esto nos ayuda a depurarlo en caso de error especial
 
     if(futureString != null){
-      print('Tenemos información');
+      final scan = ScanModel(valor: futureString);
+      DBProvider.db.nuevoScan(scan);
     }
   }
 
