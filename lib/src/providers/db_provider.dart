@@ -100,10 +100,27 @@ class DBProvider {
   
   //Actualizar registros
 
-  Future<int> updateSan(ScanModel nuevoScan) async {
+  Future<int> updateScan(ScanModel nuevoScan) async {
     final db = await database;
     final res = await db.update('Scans', nuevoScan.toJson(), where: 'id=?', whereArgs: [nuevoScan.id] );
     return res;
   }
+
+  //Eliminar registros
+  Future<int> deleteScan(int id) async {
+    final db = await database;
+    //Cuidado si no ponemos el where borramos toda la tabla
+    final res = await db.delete('Scans', where: 'id=?', whereArgs: [id] );
+    return res;
+  }
+  //Borramos todos los registros
+  Future<int> deleteAll() async {
+    final db = await database;
+    //Cuidado si no ponemos el where borramos toda la tabla
+    final res = await db.rawUpdate('DELETE FROM Scans');
+    return res;
+  }
+
+
 
 }
