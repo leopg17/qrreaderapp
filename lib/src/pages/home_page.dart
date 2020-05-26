@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:barcode_scan/barcode_scan.dart';
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
 
@@ -30,12 +32,34 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: (){},
+        onPressed: _scanQR,
         backgroundColor: Theme.of(context).primaryColor,
       ),
       
     );
   }
+
+  _scanQR() async {
+
+    // http://bolsacr.com/
+
+    //geo:10.04692358476945,-84.32874992331394
+    dynamic futureString = '';
+
+    try {
+      futureString = await BarcodeScanner.scan();
+
+    }catch( e ) {
+      futureString = e.toString();
+    }
+
+    print('Future String: ${futureString.rawContent}'); // Esto nos ayuda a depurarlo en caso de error especial
+
+    if(futureString != null){
+      print('Tenemos información');
+    }
+  }
+
 
   Widget _callPage(int paginaActual){
     switch(paginaActual){
