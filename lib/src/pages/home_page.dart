@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:barcode_scan/barcode_scan.dart';
+//import 'package:barcode_scan/barcode_scan.dart';
 import 'package:qrreaderapp/src/models/scan_model.dart';
 import 'package:qrreaderapp/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp/src/pages/mapas_page.dart';
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
     //http://bolsacr.com/
 
     //geo:10.04692358476945,-84.32874992331394
-    dynamic futureString = 'http://bolsacr.com/';
+    dynamic futureString = 'geo:10.04692358476945,-84.32874992331394';
     
 
     // try {
