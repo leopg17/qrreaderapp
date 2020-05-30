@@ -1,8 +1,9 @@
 //Archivo para copiar metodos y funciones
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:qrreaderapp/src/models/scan_model.dart';
 
-abrirScan( ScanModel scan) async {
+abrirScan(BuildContext context, ScanModel scan) async {
   //Tenemos que hacer unas validaciones porque vamos a abrir de geolocation y http
 
   if (scan.tipo == 'http'){
@@ -13,7 +14,7 @@ abrirScan( ScanModel scan) async {
     }
 
   }else {
-    print('GEO...');
+    Navigator.pushNamed(context, 'mapa', arguments: scan);
   }
   
 }

@@ -49,14 +49,14 @@ class _HomePageState extends State<HomePage> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.filter_center_focus),
-        onPressed: _scanQR,
+        onPressed: () => _scanQR(context),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       
     );
   }
 
-  _scanQR() async {
+  _scanQR(BuildContext context) async {
 
     //http://bolsacr.com/
 
@@ -85,10 +85,10 @@ class _HomePageState extends State<HomePage> {
       //Estamos haciendo una demora para esperar a que la animación de la camara se cierre
       if ( Platform.isIOS ){
         Future.delayed(Duration(milliseconds: 750), (){
-          utils.abrirScan(scan);
-        });
+          utils.abrirScan(context, scan);
+        }); 
       } else {
-        utils.abrirScan(scan);
+        utils.abrirScan(context, scan);
       }
 
       
