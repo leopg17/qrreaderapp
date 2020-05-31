@@ -30,6 +30,7 @@ class MapaPage extends StatelessWidget {
       ),
       layers: [
         _crearMapa(),
+        _crearMarcadores(scan),
       ],
     );
   }
@@ -47,6 +48,25 @@ class MapaPage extends StatelessWidget {
       // tipos de mapas mapbox://styles/mapbox/satellite-v9
       // tipos de mapas mapbox://styles/mapbox/satellite-streets-v11
       }
+    );
+  }
+
+  _crearMarcadores(ScanModel scan) {
+    return MarkerLayerOptions(
+      markers: <Marker>[
+        Marker(
+          width: 100.0,
+          height: 100.0,
+          point: scan.getLatLng(),
+          //Dibujo nuevamente en pantalla
+          builder: (context) => Container(
+            child: Icon(
+              Icons.location_on,
+              size: 45.0,
+              color: Theme.of(context).primaryColor,)
+          ),
+        ),
+      ]
     );
   }
 }
