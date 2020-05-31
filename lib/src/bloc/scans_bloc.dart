@@ -3,9 +3,10 @@
 
 import 'dart:async';
 
+import 'package:qrreaderapp/src/bloc/validator.dart';
 import 'package:qrreaderapp/src/providers/db_provider.dart';
 
-class ScansBloc{
+class ScansBloc with Validators {
   //Vamos a usar un patron Singleton
   static final ScansBloc _singleton = new ScansBloc._internal();
 
@@ -24,7 +25,8 @@ class ScansBloc{
 
   //Ocupamos poder escuchar la informacion que fluye a travez del mismo.
   //Podemos especificar la información que vamos a escuchar
-  Stream<List<ScanModel>> get scansStream => _scansController.stream;
+  Stream<List<ScanModel>> get scansStream     => _scansController.stream.transform(validarGeo);
+  Stream<List<ScanModel>> get scansStreamHttp => _scansController.stream.transform(validarHttp);
 
   //Cuando se crea un StreamController debemos cerrar las instancias del mismo
   //Es importante poner el signo de interrogación porque si no tuviera ningun objeto fallaria
@@ -59,7 +61,7 @@ class ScansBloc{
 
   borrarScanTODOS() async {
     //Borramos todos los scans
-    DBProvider.db.deleteAll();
+    await DBProvider.db.deleteAll();
     //Volvemos a cargar el metodo que trae todos para que muestre el borrado
     obtenerScans();
   }
